@@ -1,0 +1,76 @@
+% content (c) 2018 chris wallace under Creative Commons Share Alike (CC BY-SA 4.0)
+% the project: write rock/paper/scissors in vim
+\documentclass{article}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{multicol}
+\usepackage{listings}
+\lstset{language=bash}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+
+\title{Rock Paper Scissors Script}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+Rock paper scissors is a game played between two people, where each person
+makes a choice between rock, paper, or scissors. This game has clear rules-
+rock beats scissors, paper beats rock, and scissors beats paper.
+
+As this game has clear winning conditions and simple inputs (only two players,
+each player can only pick one of three choices), this game can be programmed
+using simple control flow.
+
+In this project, you'll use vim to write a bash script named \texttt{rpc.sh}. This script will:
+\begin{enumerate}
+    \item Tells the player the rules of this game.
+    \item Asks the user to choose Rock (0), Paper (1), or Scissors (2).
+    \item Picks a random number for the computer's choice (0, 1, or 2).
+    \item Computes and displays the winner of this competition.
+\end{enumerate}
+
+\section*{Helpful Shell Commands}
+Reading into a variable, printing that variable:
+\begin{lstlisting}
+read var # this waits for input
+echo "$var"
+\end{lstlisting}
+Conditionals (numbers):
+\begin{lstlisting}
+choice= 0
+if [ $choice -eq 0 ]
+then
+    echo "choice was rock!"
+elif [ $choice -eq 1 ]
+    echo "choice was paper!"
+else
+    echo "choice was not rock or paper, so it is probably scissors!"
+fi
+\end{lstlisting}
+Get a random number between 0 and 2, and store into variable called \texttt{var}:
+\begin{lstlisting}
+var= eval $RANDOM % 3
+\end{lstlisting}
+
+\section*{Helpful Vim Commands}
+\begin{multicols}{2}
+    \begin{description}
+        \item[h, j, k, l] move around (left down up right)
+        \item[i] go into insert mode, \textit{at} the cursor
+        \item[a] go into insert mode, \textit{after} the cursor
+        \item[b, w] back a word, forward a word
+        \item[:w] write (save) this file
+        \item[:wq] write and quit vim
+        \item[:q!] quit without saving
+        \item[dw] delete forward a word
+        \item[dd] delete line
+        \item[2dd] delete two lines
+        \item[p] paste after
+    \end{description}
+\end{multicols}
+
+\end{document}
