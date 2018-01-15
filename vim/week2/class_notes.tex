@@ -1,0 +1,132 @@
+% content (c) 2018 chris wallace under Creative Commons Share Alike (CC BY-SA 4.0)
+% class notes from vim week 2
+\documentclass{article}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{listings}
+\lstset{language=bash}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+
+\title{Vim class notes}
+\author{Chris Wallace}
+\date{Week 2}
+
+\begin{document}
+\maketitle
+
+First, we talked about what went well last week and what didn't. Namely, we
+discussed how there are students of all levels here so we're going to go slow,
+and fast, by having a project to work on soon. Additionally, we noted that the
+easiest way to log into cloud9 was to visit \url{https://c9.io/login} directly.
+
+\section*{File and Folder Manipulation}
+To use commands, we first type the command name, followed by any
+\textit{arguments} that we want the command to work on:
+	\[
+        \hspace {0em} \underbrace{\texttt{mv}}_{\text{command}}
+        \underbrace{
+        \hspace {1em}
+            \texttt{twocities.txt dickens.txt}
+        \hspace {1em}
+        }_{\text{arguments}}
+	\]
+
+~\\
+\noindent
+We introduced the following commands for working with \textit{files}:
+\begin{itemize}
+    \item[ls] list a directory's contents.
+    \item[cat] put files together and print them. We can use this to look at the
+        contents of a file.
+    \item[mv] move or rename a file.
+    \item[cp] copy a file.
+    \item[rm] remove a file.
+    \item[touch] create an empty file.
+\end{itemize}
+
+\noindent
+We also introduced the following commands for working with \textit{folders}:
+\begin{itemize}
+    \item[cd] or \textit{change directory}. We use this to move around folders.
+    \item[mkdir] makes a directory.
+    \item[rmdir] removes a directory, although only when it's empty.
+\end{itemize}
+
+When moving around folders with \texttt{cd}, we introduced the concept of
+\textit{absolute} and \textit{relative} paths. Absolute paths are places
+described as where they are from the root directory, or \texttt{/}. An example
+would be \texttt{/home/cwwllac/Desktop/class}. We also discussed how a user's
+home directory is pretty important, so we get a shortcut to it: the squiggly
+tilde: (\textasciitilde{}). An example path using the tilde (which is still an
+absolute path) is \texttt{\textasciitilde{}/Desktop/class}
+
+Relative paths are simpler, they are just getting you somewhere
+\textit{relative} to where you are now. If you were home, to get to
+\texttt{Desktop/class} you could simply do: \texttt{cd Desktop/class}.
+The two shortcuts to note when using relative paths are (\texttt{.}) and
+(\texttt{..}) - a single period is the \textit{current} folder we're in, and a
+double period is the folder \textit{above} (or ``back behind'') this one.
+
+Finally, we talked about how to escape a ``stuck program'' with Control+C.
+
+\section*{Input Redirection}
+First, we downloaded a file using the following command:
+\begin{lstlisting}
+wget scdojo.s3.amazonaws.com/vim/twocities.txt
+\end{lstlisting}
+This file happens to be the book \textit{A Tale of Two Cities} by Charles
+Dickens. We played around with this book with some commands. Note that any line
+beginning with a \texttt{\#} is a comment and is not code.
+\begin{lstlisting}
+# count the number of lines, words, and characters in twocities.txt
+wc twocities.txt
+# search twocities.txt for any line containing the word "times"
+grep "times" twocities.txt
+
+# redirect the output of a command to a file (times.txt)
+grep "times" twocities.txt > times.txt
+# count the number of lines, words, and characters in that new file
+wc times.txt
+
+# redirect the output of a command to another command
+grep "times" twocities.txt | wc
+\end{lstlisting}
+We then installed a new program called \textit{cowsay}:
+\begin{lstlisting}
+# update package lists. We use sudo because this requires being "super user"- the administrator
+sudo apt-get update
+# install cowsay
+sudo apt-get install cowsay
+
+# say hi
+echo "hello world"
+# say hi using a cow
+echo "hello world" | /usr/games/cowsay
+# save all that to a file
+echo "hello world" | /usr/games/cowsay > hello_cow.txt
+\end{lstlisting}
+
+\section*{Put it in a File}
+Finally, using vim, we put these things together in an actual file:
+\begin{enumerate}
+    \item Open vim with \texttt{vim hello\_world.sh} - we ended it in .sh because this is a \textit{shell script}
+    \item Press \textbf{i} to go into insert mode
+    \item Add a comment to the file (line starting with \texttt{\#}) about what this file will do
+    \item Add any script you want using \texttt{echo}, \texttt{cowsay}, etc
+\end{enumerate}
+
+We also introduced variables, which are things that can hold value and even
+have their value change. See a full example below:
+\begin{lstlisting}
+# script to say hi and ask your name
+echo "Hello world!"
+name="Chris"
+echo "My name is $name", what is yours? (please type)"
+read name
+echo "Cool! Hello there $name"
+\end{lstlisting}
+
+\end{document}
