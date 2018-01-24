@@ -1,0 +1,201 @@
+% content (c) 2018 chris wallace under Creative Commons Share Alike (CC BY-SA 4.0)
+% class notes from vim week 3
+\documentclass{article}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{paralist}
+\lstset{language=bash}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+
+\title{Vim class notes}
+\author{Chris Wallace}
+\date{Week 3}
+
+\begin{document}
+\maketitle
+
+\noindent Recap: What did we talk about last week?
+\begin{compactitem}
+    \item file commands (touch, mv, cp, rm, etc\dots)
+    \item folder commands (mkdir, rmdir, cd, etc\dots)
+    \item input and output redirection (and cowsay, of course)
+    \item the echo command
+    \item variables
+\end{compactitem}
+
+\section*{Variables}
+Let's talk again about variables, since they are actually used in almost every
+language!
+
+How do we \textit{statically assign} content to a variable?
+\begin{lstlisting}
+name="chris"
+\end{lstlisting}
+
+How do we \textit{dynamically assign} content to a variable?
+\begin{lstlisting}
+read name
+\end{lstlisting}
+
+How do we print the contents of a variable?
+\begin{lstlisting}
+echo "$name"
+echo "$other_variable"
+\end{lstlisting}
+
+Variables are some of the most important things of programming. If you have
+taken pre algebra, you should be familiar with something like this:
+\[
+    y = x + 2
+\]
+
+To represent this in bash, we first introduce that there is a way to do math:
+\lstinline|$((math))|. See the example below, notice we use the ``\$'' only
+when \textit{accessing} a variable's contents.
+\begin{lstlisting}
+x=2
+echo "$x" # shows 2
+y=$(($x+2)) # y is now 4
+\end{lstlisting}
+
+In programming, we use variables to keep track of \textit{state}. We want our
+programs to be able to make decisions based on what they receive and know.
+
+\section*{Conditionals}
+Almost every programming language has a thing called \textit{Conditionals}. If
+you've done scratch or python, you've seen these already: ``if this then that''
+is the general idea.
+
+Let's look at some examples. In the following, we can see a simple \textbf{if}
+statement. Notice that the square brackets have some pretty specific spacing,
+and we use the \$ to access the choice. Also important are the \textbf{then}
+statement, and the \textbf{fi} to end. We additionally indent our code for
+readability.
+\begin{lstlisting}
+choice=0
+if [ $choice -eq 0 ]
+then
+    echo "choice was rock!"
+fi
+\end{lstlisting}
+
+In the following example, we'll see "if else". The \textbf{else} block will
+happen if the \textbf{if} condition was not true. What do you think this
+program will print?
+\begin{lstlisting}
+choice=999
+if [ $choice -eq 0 ]
+then
+    echo "choice was rock!"
+else
+    echo "choice was not rock! :("
+fi
+\end{lstlisting}
+
+Finally, we have one more tool at our disposal: \textbf{elif}. We use this to
+handle \textit{multiple} conditions. What do you think will be printed by this?
+\begin{lstlisting}
+choice=1
+if [ $choice -eq 0 ]
+then
+    echo "choice was rock!"
+elif [ $choice -eq 1 ]
+then
+    echo "choice was paper!"
+else
+    echo "choice was not rock, or paper.. hmmmm"
+fi
+\end{lstlisting}
+
+\section*{Rock Paper Scissors}
+In the case of the rock paper scissors project, we can make decisions based on
+what the user inputs. Before we do that, however, we need to discuss algorithms.
+\subsection*{Algorithms}
+An \textit{algorithm} is the set of rules, or steps, that the computer will
+take to solve a problem. As a software engineer, you'll have to not just type
+code into the computer, but actually come up with solutions that work.
+
+For Rock Paper Scissors, can you think of the steps involved? Here's the
+simplest steps we came up with:
+\begin{enumerate}
+    \item Both players come up with a choice.
+    \item A winner is determined.
+\end{enumerate}
+
+Let's break down each individual part of that. in \#1, we already know how to
+get human input using \textbf{read}, so the hard part is figuring out the
+computer's choice.
+
+\subsection*{The Computer's Choice}
+Remember remainder division, your favorite part of elementary school math? There's one
+thing that's important from what you learned back then. Check out the following
+example, notice the pattern of the remainder:
+\begin{align*}
+    \frac{2}{2} = 1, \text{remainder } 0\\
+    \frac{3}{2} = 1, \text{remainder } 1\\
+    \frac{4}{2} = 2, \text{remainder } 0\\
+    \frac{5}{2} = 2, \text{remainder } 1\\
+\end{align*}
+Whenever we divide by 2, we always get a remainder of either 0 or 1.
+
+What happens when we divide by 3? The possible remainders then become 0, 1, and 2.
+\begin{align*}
+    \frac{0}{3} = 0, \text{remainder } 0\\
+    \frac{1}{3} = 0, \text{remainder } 1\\
+    \frac{2}{3} = 0, \text{remainder } 2\\
+    \frac{3}{3} = 1, \text{remainder } 0\\
+    \frac{4}{3} = 1, \text{remainder } 1\\
+    \frac{5}{3} = 1, \text{remainder } 2\\
+\end{align*}
+
+In programming, most languages have a shortcut to get ``the remainder from a
+division of this number''. It's called \textit{modulo}, or \textbf{mod} for
+short. You can use it in bash with: \lstinline|%|, for example:
+\begin{lstlisting}
+x=3
+echo "$(($x % 3))" # prints 0
+x=4
+echo "$(($x % 3))" # prints 1
+x=5
+echo "$(($x % 3))" # prints 2
+\end{lstlisting}
+
+Now that we have a way to take any number to 0, 1, or 2, we need a way to get
+random numbers. Luckily, there is a \textit{system variable} that gives you a
+random number for free. It's called \lstinline|RANDOM|, simply enough. To use:
+\begin{lstlisting}
+# get a random number between 0 and 2
+computerchoice=$(($RANDOM % 3))
+\end{lstlisting}
+
+\subsection*{Determining a winner}
+To determine a winner, we'll use the \textbf{if} statements we learned earlier,
+by \textit{nesting} the if statements (putting them inside each other):
+
+\begin{lstlisting}
+if [ $playerchoice -eq 0 ]
+then
+    echo "player chose rock"
+    if [ $computerchoice -eq 0 ]
+    then
+        echo "there was a tie"
+        # you do the rest
+    fi
+elif [ $playerchoice -eq 1 ]
+then
+    echo "player chose paper"
+    # you do the rest...
+elif [ $playerchoice -eq 2 ]
+then
+    echo "player chose scissors"
+    # you do the rest...
+else
+    echo "player didn't make the right choice"
+fi
+\end{lstlisting}
+
+\end{document}
