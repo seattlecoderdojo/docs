@@ -1,0 +1,59 @@
+% content (c) 2018 chris wallace under Creative Commons Share Alike (CC BY-SA 4.0)
+% the project: write rock/paper/scissors in vim with a loop
+\documentclass{article}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{multicol}
+\usepackage{listings}
+\lstset{language=bash}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+
+\title{Rock Paper Scissors: Part 2}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+In the previous lab, you created a Rock Paper Scissors game. However, while
+it's fun, it's pretty annoying to restart the script every time you want to
+play. In this activity, you will expand on your project by adding the
+following:
+\begin{enumerate}
+    \item After Rock Paper Scissors (RPC) is played, the program will ask if
+        the human wants to play again.
+
+    \item The program will read the user's input, and either quit or play again.
+
+    \item When the program quits, it will print how many games the human won,
+        and how many games the computer won. If you'd like, you can have the
+        program then print who had more wins.
+\end{enumerate}
+
+\section*{Bonus}
+If you found this to be too easy, try this bonus below. Be sure to
+think of your \textit{algorithm} before working. Don't worry if you run into
+trouble, this is actually pretty difficult.
+\begin{enumerate}
+    \item At the beginning of the program, ask the user what the
+        maximum\footnote{In ``best 2 out of 3'', this would be 3. ``best of
+        7'', etc.} number of wins should be.
+
+    \item Quit the program after there is a winner. For example, if it were
+        ``best of 7'', and the human won 4 games in a row, it should quit, as
+        the computer cannot win in the games remaining.
+\end{enumerate}
+
+\section*{Helpful Shell Commands}
+Loops (numbers):
+\begin{lstlisting}
+i=0
+while [ $i -le 4 ]
+do
+    echo "$i"
+    (( i++ ))
+done
+\end{lstlisting}
+\end{document}
