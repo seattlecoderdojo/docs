@@ -1,0 +1,152 @@
+% content (c) 2018 chris wallace under Creative Commons Share Alike (CC BY-SA 4.0)
+% class notes from vim week 4
+\documentclass{article}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{paralist}
+\lstset{language=bash}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+
+\title{Vim class notes}
+\author{Chris Wallace}
+\date{Week 4}
+
+\begin{document}
+\maketitle
+
+\noindent Recap: What did we talk about last week?
+\begin{compactitem}
+    \item conditionals
+\end{compactitem}
+
+\section*{Other Comparators}
+In our previous classes, we have checked for \textit{equality} using
+\texttt{-eq}. However, there are other comparison operatiors too:
+
+\begin{center}
+    \begin{tabular}{l|c|c}
+        \textbf{english} & \textbf{math} & \textbf{bash} \\ \hline
+        equals & $=$ & \texttt{-eq} \\
+        not equals & $\neq$ & \texttt{-ne} \\
+        less than & $<$ & \texttt{-lt} \\
+        greater than & $>$ & \texttt{-gt} \\
+        less than or equal to& $\le$ & \texttt{-le} \\
+        greater than or equal to& $\ge$ & \texttt{-ge}
+    \end{tabular}
+\end{center}
+
+\section*{Loops}
+Just like conditionals, all languages have loops. It's something that allows us
+to run the same code multiple times.
+\begin{lstlisting}
+i=1
+while [ $i -lt 5 ]
+do
+    echo "$i"
+    (( i++ ))
+done
+\end{lstlisting}
+
+You can also use loops to do something over and over until a human stops it.
+\begin{lstlisting}
+times=1
+go=1
+while [ $go -eq 1 ]
+do
+    echo "we went $times times"
+    (( times++ ))
+    read -p "should we continue? press 1: " go
+done
+\end{lstlisting}
+
+\section*{Data Types}
+What are data types? Just the types of data we have! We discussed that, in this
+class, we've primarily dealth with three: Booleans, Integers, and Strings.
+
+\subsection*{Booleans}
+Booleans have two possible values: \textbf{True} or \textbf{False}. Each one of
+our \textbf{if} statements dealt with booleans.
+
+\subsection*{Integers}
+If you remember from math class, integers are positive or negative whole
+numbers, including zero. Some examples are -1, 0, 1, 2, etc\dots
+
+For the shell/bash programming language, the comparisons we've learned
+(\texttt{-eq}, \texttt{-lt}, etc are all operations on integers. You couldn't
+use these to compare strings, which we'll discuss next.
+
+\subsection*{Strings}
+Strings are the types of data we keep in the \texttt{"} (quotation) marks. \texttt{"hi"} is a string in bash.
+
+\subsection*{Examples}
+Some programming languages make you specify the data type of a variable you
+even name it! However, bash is not one of those languages- it's up to you to
+look at the variable and think about the type of data it is.
+
+\begin{lstlisting}
+# integers
+x=4
+y=7
+z=-1
+
+# strings
+name="chris"
+greeting="Hello there, human"
+stringnum="5"
+
+# convert x ond y to strings
+x="$x"
+y="$y"
+\end{lstlisting}
+
+\section*{File Permissions}
+Finally, we discussed that you can run your program directly by doing:
+\begin{lstlisting}
+./program_name.sh
+\end{lstlisting}
+
+However, we noted that there are two prerequisites:
+\begin{enumerate}
+    \item Your first line of the file is \lstinline|#!/bin/bash|
+        \begin{itemize}
+            \item This says that "Hey, this file is meant to be run by this program"
+            \item \lstinline|/bin/bash| is where \lstinline|bash| lives.
+        \end{itemize}
+
+    \item You have \textit{execute permissions} to this script.
+        \begin{itemize}
+            \item We used the command \lstinline|chmod u+x ./program_name.sh|
+
+            \item This means ``give \textbf{U}ser the e\textbf{X}ecute
+                permissions to this file.''
+        \end{itemize}
+\end{enumerate}
+
+Here's example output of the command \lstinline|ls -l|
+\begin{verbatim}
+total 12
+--w------- 1 ubuntu ubuntu  48 Jan 21 00:48 no_read.txt
+---x--x--x 1 ubuntu ubuntu   9 Jan 21 00:51 no_read_no_write.txt*
+-r--r--r-- 1 ubuntu ubuntu 177 Jan 28 23:25 read_no_write.txt
+\end{verbatim}
+
+Looking at the left, we explained that there are 10 ``spots''. Each one of
+these spots is either ``occupied'' with a letter, or is a \texttt{-}. To phrase
+it differently, each file has 10 \textit{boolean} spots about their permissions.
+\begin{itemize}
+    \item The first spot is \texttt{d}, which will be set if this is a directory.
+    \item The next 3 spots are for the \textbf{user's} read, write, and execute permissions.
+    \item The next 3 spots are for the \textbf{group's} read, write, and execute permissions.
+    \item The next 3 spots are for everyone else, or \textbf{other's} read, write, and execute permissions.
+\end{itemize}
+
+This command also lists the owner (ubuntu), the owning group (ubuntu), and the
+last modified time of the file in UTC time.
+
+We can use the \textbf{chmod} command to add or remove permissions.
+
+\end{document}
