@@ -1,0 +1,78 @@
+% content (c) 2018 chris wallace under Creative Commons Share Alike (CC BY-SA 4.0)
+% the project: write a number guessing game, using everything we've learned so far
+\documentclass{article}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{multicol}
+\usepackage{listings}
+\lstset{language=bash}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+
+\title{Final Project: Number Guessing Game}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+For this lab, you will write a basic program in bash, using a loop, that will
+play a Guess the Number Game. The program will randomly generate an integer
+between 0 and 99 (both 0 and 99 are possible choices) and will start a loop
+where it asks the user for a guess.
+
+If the user guesses an incorrect number, the program should respond with one of
+two messages: ``too high'' or ``too low'', depending on the user's input.
+
+If the user has guessed the correct number, the program will end, and tell the
+user how many guesses it took the human to get it right. In addition, there
+will be a message based on that number of guesses:
+
+\begin{description}
+    \item[1 guess:] That was lucky!
+    \item[2-5 guesses:] Good job.
+    \item[5 or more guesses:] Not impressive.
+\end{description}
+
+It's okay to mess around with these messages, but try to get the program
+working first!
+
+\section*{Example output}
+A working version of this program might look similar this when it runs:
+\begin{verbatim}
+Enter a guess between 1 and 99: 35
+Too High!
+
+Enter a guess between 1 and 99: 15
+Too High!
+
+Enter a guess between 1 and 99: 10
+Too High!
+
+Enter a guess between 1 and 99: 5
+Too Low!
+
+Enter a guess between 1 and 99: 7
+Too Low!
+
+Enter a guess between 1 and 99: 8
+Yeah! Your guess was correct.
+
+I had chosen 8 as the target number.
+You guessed it in 6 tries.
+Not impressive.
+\end{verbatim}
+
+\section*{Helpful Hints}
+We have covered the following concepts in past labs and previous clasess:
+\begin{itemize}
+    \item How to keep track of things (variables)
+    \item How to increment a variable $x$ with \texttt{(( x++ ))}
+    \item How to generate a random number (and how to make it between 0-3)
+    \item How to make decisions based on user input (if/then/elif/then/else/fi)
+    \item How to make something happen over and over (while/do/done)
+\end{itemize}
+
+
+\end{document}
